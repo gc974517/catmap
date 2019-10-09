@@ -1,0 +1,17 @@
+import java.net.*;
+//This is a snippet of java code taken from javascan.com. Parts of this could be used in the
+//android app for CatMap.
+public class Ping{
+  public static void main(String args){
+    try{
+      String ipAdd = args;
+      InetAddress inet = InetAddress.getByName(ipAdd);
+      System.out.println("Pinging " + ipAdd);
+      if (inet.isReachable(5000)) {
+        System.out.println(ipAdd + " is reachable!");
+      }else{
+        System.out.println(ipAdd + " is NOT reachable!");
+      }
+    }
+  }
+}
