@@ -30,6 +30,7 @@ Quality scrum hours are tentative, but we intend to follow the schedule
 	- Determine possible toolchain to begin development.
 		+ Java (frontend) & Python (backend)
 		+ Android Studio
+		+ Wireshark
 		+ To determine: helpful APIs/libraries.
 
 * Wednesday, 09/25: 6:00PM - 7:30PM
