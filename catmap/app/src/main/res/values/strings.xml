@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Catmap</string>
+    <string name="app_name">CatMap</string>
+    <string-array name="results">
+        <item>Room 100</item>
+        <item>Room 101</item>
+        <item>Room 120</item>
+        <item>Room 132</item>
+        <item>Room 149</item>
+    </string-array>
 </resources>
