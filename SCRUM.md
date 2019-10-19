@@ -12,13 +12,7 @@ Quality scrum hours are tentative, but we intend to follow the schedule
 
 **Additional Meetings:**
 
-* Monday, 10/14: 7:00PM
-	- Group programming & design session.
-	- Goals:
-		+ Start integrating the IA SDK into our app. (See examples & documentation for reference.)
-		+ Translate mockup ideas into a cohesive frontend.
-		+ Continue mapping Stocker Center (1st Floor).
-		+ Test! (If we're lucky.)
+None currently scheduled. Live demo on Tuesday, __10/22/19__!
 
 ### Past Meetings:
 
@@ -30,6 +24,7 @@ Quality scrum hours are tentative, but we intend to follow the schedule
 	- Determine possible toolchain to begin development.
 		+ Java (frontend) & Python (backend)
 		+ Android Studio
+		+ Wireshark
 		+ To determine: helpful APIs/libraries.
 
 * Wednesday, 09/25: 6:00PM - 7:30PM
@@ -59,3 +54,16 @@ Quality scrum hours are tentative, but we intend to follow the schedule
 	- Backend (Garett & Daniel):
 		+ Learn some of the gritty details of IA's implementation. (Their docs are pretty good.)
 		+ Continue to play around with Java & Python code just in case IA becomes unusable.
+
+* Monday, 10/14: 7:00PM - 8:30PM
+	- Group programming & design session.
+	- Successful testing of location tracking & wayfinding examples.
+	- Team organizaiton changes:
+		+ Frontend (Design & Features): Ian & Daniel
+		+ Backend (SDK & Implementation): Marcelo & Garett
+	- Work on a functional design for the app, then we can import working SDK code into the main project.
+	- Discuss ideas for future features.
+		+ Destination searching (Ian & Daniel).
+		+ Automatic region detection & wayfinding (Marcelo & Garett).
+		+ Detecting user orientation (Marcelo & Garett).
+		+ Make it look good (Ian & Daniel).
