@@ -2,7 +2,9 @@ package com.example.catmap;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,10 +13,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.indooratlas.android.sdk.IALocation;
+import com.indooratlas.android.sdk.IALocationListener;
+import com.indooratlas.android.sdk.IALocationManager;
+import com.indooratlas.android.sdk.IALocationRequest;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class MapsActivity extends FragmentActivity implements IALocationListener, OnMapReadyCallback {
+    private IALocationManager mIALocationManager;
     private GoogleMap mMap;
+    private Marker mMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mIALocationManager = IALocationManager.create(this);
     }
 
 
@@ -39,18 +51,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    // Declare IA location listener, define update operations.
+    public void onLocationChanged(IALocation location) {
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        if (mMarker == null) {
+            if (mMap != null) {
+                mMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+                        .icon(BitmapDescriptorFactory.defaultMarker(200.0f)));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
+            }
+        } else {
+            mMarker.setPosition(latLng);
+        }
+    }
+
+    // On resuming the app, begin requesting location updates.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mIALocationManager.requestLocationUpdates(IALocationRequest.create(), this);
+    }
+
+    // Stop location requests on app pause.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mIALocationManager != null)
+            mIALocationManager.removeLocationUpdates(this);
     }
 
     public void onDestoy() {
-        super.onDestroy();
-        MapFragment mapFragment = (MapFragment) this.getFragmentManager().findFragmentById(R.id.map);
+        mIALocationManager.destroy();
 
+        MapFragment mapFragment = (MapFragment) this.getFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null)
             this.getFragmentManager().beginTransaction().remove(mapFragment).commit();
-    } // end function
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // N/A
+    }
 }

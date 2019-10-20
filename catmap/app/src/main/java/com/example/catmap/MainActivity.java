@@ -27,14 +27,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private final int CODE_PERMISSIONS = 1;
-    private IALocationManager mIALocationManager;
 
+    // Initial steps on starting the app.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mIALocationManager = IALocationManager.create(this);
 
         String[] neededPermissions = {
                 Manifest.permission.CHANGE_WIFI_STATE,
@@ -44,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, neededPermissions, CODE_PERMISSIONS);
 
         startActivity(new Intent(this, MapsActivity.class));
-    } // end function
+    }
 
+    // Send permissions requests to system. If none logged, ask user.
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    } // end function
-} // end MainActivity
+    }
+}
