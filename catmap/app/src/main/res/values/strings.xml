@@ -7,4 +7,5 @@
         <item>Room 132</item>
         <item>Room 149</item>
     </string-array>
+    <string name="title_activity_maps">Google Map</string>
 </resources>
