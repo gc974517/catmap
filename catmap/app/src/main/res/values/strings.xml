@@ -8,4 +8,5 @@
         <item>Room 149</item>
     </string-array>
     <string name="title_activity_maps">Google Map</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAggrtPHM9ENS8qJloGsUbFbyuusDFgT50</string>
 </resources>
