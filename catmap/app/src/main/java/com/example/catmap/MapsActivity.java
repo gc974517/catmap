@@ -82,4 +82,13 @@ public class MapsActivity extends FragmentActivity implements IALocationListener
         mIALocationManager.destroy();
         super.onDestroy();
     }
+<<<<<<< HEAD
 }
+=======
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // N/A
+    }
+}
+>>>>>>> fcb13584faa9252bb117da4cd77139505bb5b73d
