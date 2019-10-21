@@ -28,6 +28,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.indooratlas.android:indooratlas-android-sdk:3.1.0@aar'
     implementation 'com.android.support:support-compat:27.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
 
 repositories {
