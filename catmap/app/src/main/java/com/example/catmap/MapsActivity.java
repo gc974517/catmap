@@ -19,6 +19,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,8 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
-
 import com.google.android.gms.maps.model.PolylineOptions;
+
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationListener;
 import com.indooratlas.android.sdk.IALocationManager;
@@ -54,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private GoogleMap mMap;
     private List<Polyline> mPolylines = new ArrayList<>();
     private Marker mDestinationMarker;
+    private Marker mHeadingMarker;
+    private Circle mCircle;
 
     private Target mTarget;
 
@@ -79,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 updateRoute();
             mFloorLevel = newFloorLevel;
 
+            updateLocation(latLng, location.getAccuracy());
             if (mCameraUpdate) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.5f));
                 mCameraUpdate = false;
@@ -223,7 +228,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(false);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -300,6 +305,30 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             this.getFragmentManager().beginTransaction().remove(mapFragment).commit();
 
         mIALocationManager.destroy();
+    }
+
+    private void updateLocation(LatLng pos, double radius) {
+        if (mCircle == null) {
+            if (mMap != null) {
+                mCircle = mMap.addCircle(new CircleOptions()
+                    .center(pos)
+                    .radius(radius)
+                    .fillColor(0x201681FB)
+                    .strokeColor(0x500A78DD)
+                    .zIndex(1.0f)
+                    .visible(true)
+                    .strokeWidth(5.0f));
+                mHeadingMarker = mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
+                    .anchor(0.5f, 0.5f)
+                    .flat(true));
+            }
+        } else {
+            mCircle.setCenter(pos);
+            mHeadingMarker.setPosition(pos);
+            mCircle.setRadius(radius);
+        }
     }
 
     private void updateRoute() {
