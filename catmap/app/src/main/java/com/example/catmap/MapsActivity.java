@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -44,6 +45,14 @@ public class MapsActivity extends FragmentActivity implements IALocationListener
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            public void onMapClick(LatLng pos) {
+                MarkerOptions markerOptions = new MarkerOptions().position(pos);
+                mMap.clear();
+                mMap.addMarker(markerOptions);
+            }
+        });
     }
 
     @Override
