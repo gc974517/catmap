@@ -67,3 +67,6 @@ None currently scheduled. Live demo on Tuesday, __10/22/19__!
 		+ Automatic region detection & wayfinding (Marcelo & Garett).
 		+ Detecting user orientation (Marcelo & Garett).
 		+ Make it look good (Ian & Daniel).
+* Sunday, 10/20 8:00PM - 10:00PM
+	- Ian and Daniel work towards creating a front end
+	- Look over the Atlas functions in the SDK and find one to use for the homescreen
