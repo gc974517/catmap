@@ -67,3 +67,36 @@ None currently scheduled. Live demo on Tuesday, __10/22/19__!
 		+ Automatic region detection & wayfinding (Marcelo & Garett).
 		+ Detecting user orientation (Marcelo & Garett).
 		+ Make it look good (Ian & Daniel).
+
+* Wednesday, 10/16: 7:00PM - 8:00PM
+	- Group programming & design session.
+	- IndorAtlas API Documentation reading session.(Garett & Marcelo)
+		+ Start Implementation of API from scratch in CatMap.
+	- Design and Overview of App. (Daniel & Ian)
+
+* Sunday, 10/20: 8:00PM - 3:00AM (Monday)
+	- Group programming session.
+	- IndorAtlas API & Google Maps API Implementation (Garett & Marcelo)
+		+ Start of full implementation.
+		+ Debugging errors.
+		+ Power Outage at Stocker Center.
+		+ Google Maps API key not working.
+	- Design and Overview of App (Daniel & Ian)
+		+ Creating OU Color Scheme
+		+ Putting search bar for future use
+		+ Paw button for future use
+
+* Monday, 10/21 4:00pm-7:00pm
+	- Final debugging session before live demo.
+		+ GoogleMaps API fixed
+		+ Wayfinding now works
+	- Creating PowerPoint for live demo
+
+* Wednesday,10/23 6:00pm-6:30pm
+	- Discuss live demo feedback
+		+ Possible additions to make to app
+	- Setting new goals for each person
+		+ Garett: Refine region detection between indoors and outdoors, alongside orientation detection
+		+ Marcelo: Labelling rooms inside buildings for future search function, mapping out other floors(2,3, ground)
+		+ Ian: Utilize paw button for wayfinding
+		+ Daniel: Creating a working search bar.
