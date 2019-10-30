@@ -16,17 +16,18 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_indooratlas_android_indooratlas_android_sdk_3_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_indooratlas_android_indooratlas_android_sdk_3_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/catmap/MapsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/catmap/MapsActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
@@ -39,7 +40,11 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_25" />
+=======
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29_x86" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -61,10 +66,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/catmap/MapsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="245">
               <caret line="100" column="114" selection-start-line="100" selection-start-column="97" selection-end-line="100" selection-end-column="114" />
               <folding>
                 <element signature="imports" expanded="true" />
+=======
+            <state relative-caret-position="213">
+              <caret line="324" column="33" lean-forward="true" selection-start-line="324" selection-start-column="33" selection-end-line="324" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2689#3307#0" expanded="true" />
+                <element signature="e#3306#3307#0" expanded="true" />
+                <element signature="e#4808#4809#0" expanded="true" />
+                <element signature="e#4881#4882#0" expanded="true" />
+                <element signature="e#6879#7666#0" expanded="true" />
+                <element signature="e#7665#7666#0" expanded="true" />
+                <element signature="e#8813#9649#0" expanded="true" />
+                <element signature="e#9648#9649#0" expanded="true" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
               </folding>
             </state>
           </provider>
@@ -133,6 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -145,6 +166,11 @@
         </subPane>
       </pane>
       <pane id="ProjectPane" />
+=======
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -256,7 +282,11 @@
     <frame x="0" y="26" width="1920" height="995" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.020386266" />
+=======
+      <window_info content_ui="combo" id="Project" order="1" weight="0.297593" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -271,8 +301,13 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3291714" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" weight="0.3295325" />
       <window_info anchor="bottom" id="Version Control" order="6" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.32657927" />
       <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
+=======
+      <window_info anchor="bottom" id="Build" order="7" weight="0.32764506" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
       <window_info anchor="bottom" id="Find" order="9" weight="0.32992035" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32932165" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -384,6 +419,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/catmap/MapsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="245">
           <caret line="100" column="114" selection-start-line="100" selection-start-column="97" selection-end-line="100" selection-end-column="114" />
           <folding>
@@ -394,6 +430,20 @@
             <element signature="e#4955#4956#0" expanded="true" />
             <element signature="e#7316#7583#0" expanded="true" />
             <element signature="e#7582#7583#0" expanded="true" />
+=======
+        <state relative-caret-position="213">
+          <caret line="324" column="33" lean-forward="true" selection-start-line="324" selection-start-column="33" selection-end-line="324" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2689#3307#0" expanded="true" />
+            <element signature="e#3306#3307#0" expanded="true" />
+            <element signature="e#4808#4809#0" expanded="true" />
+            <element signature="e#4881#4882#0" expanded="true" />
+            <element signature="e#6879#7666#0" expanded="true" />
+            <element signature="e#7665#7666#0" expanded="true" />
+            <element signature="e#8813#9649#0" expanded="true" />
+            <element signature="e#9648#9649#0" expanded="true" />
+>>>>>>> 5de630592977b32d1281b548050e325f1481ed39
           </folding>
         </state>
       </provider>
