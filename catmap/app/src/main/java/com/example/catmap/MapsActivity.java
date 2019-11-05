@@ -50,6 +50,8 @@ import com.squareup.picasso.Target;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO:Implement the search bar.
+
 /**
  * @file MapsActivity
  *  Handles navigational code using GoogleMaps API alogside IndoorAtlas.
@@ -127,13 +129,12 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         * @brief Updates information when entering a new region.
         * @param region. Used to update
         */
-        public void onEnterRegion(IARegion region) {
+        public void onEnterRegion(IARegion region) {    //TODO: Implement a front end trigger in this function.
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
-
                 mIALocationManager.lockIndoors(false);
                 mIndoorLock = false;
-            } else if (region.getType() == IARegion.TYPE_FLOOR_PLAN) {
+            } else if (region.getType() == IARegion.TYPE_FLOOR_PLAN) {  ///The user has walked into a zone
                 if (mGroundOverlay == null || !region.equals(mFloorPlan)) {
                     mCameraUpdate = true;
 
@@ -146,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                     final IAFloorPlan floorPlan = region.getFloorPlan();
 
                     /**
-                    * @brief Loads maps from IndorAtlas servers
+                    * @brief Loads maps from IndoorAtlas servers
 
                     * @param bitmap. Object that holds the map information
                     * @param from. Helps display image of map from IndorAtlas
@@ -210,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }//onEnter
 
         @Override
-        public void onExitRegion(IARegion region) {
+        public void onExitRegion(IARegion region) { /* @brief Upon exiting a defined region */
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
 
@@ -245,13 +246,13 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 final double FINISH_THRESHOLD_METERS = 8.0;
                 double routeLength = 0;
                 for (IARoute.Leg leg : route.getLegs())
-                    routeLength += leg.getLength();
+                    routeLength += leg.getLength(); //Continuously get the distance to the destination until the distance is 0.
 
                 hasArrived = routeLength < FINISH_THRESHOLD_METERS;
             }
 
-            if (hasArrived) {
-                mRoute = null;
+            if (hasArrived) {   //The user has arrived to the room
+                mRoute = null;      //Destroy the route. No longer needed
                 mWayfindingDestination = null;
                 mIALocationManager.removeWayfindingUpdates();
             }
@@ -281,14 +282,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {   //The map is loaded
         mMap = googleMap;
         mMap.setMyLocationEnabled(false);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             public void onMapClick(LatLng pos) {
-                if (mMap != null) {
+                if (mMap != null) { //If the map is loaded
                     mWayfindingDestination = new IAWayfindingRequest.Builder()
                         .withFloor(mFloorLevel)
                         .withLatitude(pos.latitude)
@@ -440,7 +441,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 continue;
 
             PolylineOptions polylineOptions = new PolylineOptions()
-                    .add(new LatLng(leg.getBegin().getLatitude(), leg.getBegin().getLongitude()))
+                    .add(new LatLng(leg.getBegin().getLatitude(), leg.getBegin().getLongitude()))   //Continuously get the newest lat/lng cords until arrival
                     .add(new LatLng(leg.getEnd().getLatitude(), leg.getEnd().getLongitude()));
 
             if (leg.getBegin().getFloor() == mFloorLevel && leg.getEnd().getFloor() == mFloorLevel)

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         String[] neededPermissions = {
                 Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION //May need to be ACCESS_FINE_LOCATION in order to run. The permission seems to be bugged.
         };
         ActivityCompat.requestPermissions(this, neededPermissions, CODE_PERMISSIONS);
 
