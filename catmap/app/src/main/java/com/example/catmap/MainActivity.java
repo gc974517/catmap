@@ -25,10 +25,25 @@ import com.indooratlas.android.sdk.IARegion;
 
 import java.util.ArrayList;
 
+/**
+ * @file MainActivity
+ * Handles initializing steps for app upon startup.
+ */
+
+/**
+ * @brief MainActivity class.
+ * Main activity that is called at the start of the app. Fetches UI, handles permissions and makes
+ * call to Maps activity, which handles all navigational (GoogleMaps / IndoorAtlas) code.
+ */
 public class MainActivity extends AppCompatActivity {
     private final int CODE_PERMISSIONS = 1;
 
-    // Initial steps on starting the app.
+    /**
+     * @brief Initializes app on launch.
+     * Calls layout and checks for permissions from user's device. Starts MapsActivity.
+     *
+     * @param savedInstanceState Passed Bundle object containing the state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, MapsActivity.class));
     }
 
-    // Send permissions requests to system. If none logged, ask user.
+    /**
+     * @brief Request permissions from user.
+     *
+     * @param requestCode Arbitrary int value (default 1).
+     * @param permissions Array of permissions to ask user for.
+     * @param grantResults Array of permissions checks as boolean ints (0 or 1).
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
