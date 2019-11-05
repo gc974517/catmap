@@ -50,6 +50,18 @@ import com.squareup.picasso.Target;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @file MapsActivity
+ *  Handles navigational code using GoogleMaps API alogside IndoorAtlas.
+ */
+
+
+/**
+* @brief MapsActivity class.
+* Side activity that is called after app start up. Uses  permissions already granted
+* to fetch maps, update locations, and show routes.
+*/
+
 public class MapsActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
     private static final int MAX_DIMENSION = 2048;
 
@@ -60,7 +72,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private Circle mCircle;
 
     private Target mTarget;
-    private Circle mCircle;
 
     private boolean mCameraUpdate = true;
     private boolean mIndoorLock = false;
@@ -73,6 +84,15 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private IARoute mRoute;
 
     private IALocationListener mListener = new IALocationListenerSupport() {
+
+      /**
+      * @brief Handles location updates
+      * Using the parameter location, the function updates latitude, longitude and floor level.
+      * After updating these values, the circle used to show user's location is updated on the map.
+      *
+      *@@param location Passed IALocation object containing information about current location
+      */
+
         @Override
         public void onLocationChanged(IALocation location) {
             if (mMap == null) return;
@@ -93,8 +113,20 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }
     };
 
+
+    /**
+    * @brief Listens for changes in location
+    *
+    */
+
     private IARegion.Listener mRegionListener = new IARegion.Listener() {
         @Override
+
+
+        /**
+        * @brief Updates information when entering a new region.
+        * @param region. Used to update
+        */
         public void onEnterRegion(IARegion region) {
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
@@ -112,6 +144,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
                     mFloorPlan = region;
                     final IAFloorPlan floorPlan = region.getFloorPlan();
+
+                    /**
+                    * @brief Loads maps from IndorAtlas servers
+
+                    * @param bitmap. Object that holds the map information
+                    * @param from. Helps display image of map from IndorAtlas
+                    */
+
                     mTarget = new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -134,6 +174,12 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                                 }
                             }
                         }
+
+                        /**
+                        * @If the floorplan can't be obtained, initialized to null so it doesnt display anything.
+
+                        * @param errorDrawable.
+                        */
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
@@ -161,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 mIALocationManager.lockIndoors(true);
                 mIndoorLock = true;
             }
-        }
+        }//onEnter
 
         @Override
         public void onExitRegion(IARegion region) {
@@ -181,6 +227,12 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     };
 
     private IAWayfindingRequest mWayfindingDestination;
+
+    /**
+    * @brief Updates information on route based on movement by user
+    * @param route IARoute which holds information to display quickest route to location
+    */
+
     private IAWayfindingListener mWayfindingListener = new IAWayfindingListener() {
         @Override
         public void onWayfindingUpdate(IARoute route) {
@@ -310,8 +362,13 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         mIALocationManager.destroy();
     }
 
-<<<<<<< HEAD
 
+    /**
+    * @brief Displays circle that representes users location
+
+    * @param center LatLng Object that holds useres location
+    * @param accuracyRadius number that reprecents radius of the ccuracy circle
+    */
 
     private void showLocationCircle(LatLng center, double accuracyRadius) {
         if (mCircle == null) {
@@ -338,8 +395,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             mCircle.setRadius(accuracyRadius);
         }
     }
-}
-=======
+
+    /**
+    * @brief Displays updates status of circle that representes users location
+
+    * @param pos LatLng Object that holds useres location
+    * @param radius number that reprecents radius of the ccuracy circle
+    */
+
     private void updateLocation(LatLng pos, double radius) {
         if (mCircle == null) {
             if (mMap != null) {
@@ -389,4 +452,3 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }
     }
 }
->>>>>>> 5de630592977b32d1281b548050e325f1481ed39
