@@ -11,7 +11,11 @@ import android.location.LocationManager;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+<<<<<<< Updated upstream
 import android.widget.ImageView;
+=======
+import android.widget.SearchView;
+>>>>>>> Stashed changes
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +31,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+<<<<<<< Updated upstream
 
+=======
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.indooratlas.android.sdk.IAGeofence;
+import com.indooratlas.android.sdk.IAGeofence.Builder;
+>>>>>>> Stashed changes
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationListener;
 import com.indooratlas.android.sdk.IALocationManager;
@@ -45,8 +56,16 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private static final int MAX_DIMENSION = 2048;
 
     private GoogleMap mMap;
+<<<<<<< Updated upstream
     private Marker mMarker;
 
+=======
+    private List<Polyline> mPolylines = new ArrayList<>();
+    private Marker mDestinationMarker;
+    private Marker mHeadingMarker;
+    private Circle mCircle;
+    private Marker mMarker;
+>>>>>>> Stashed changes
     private Target mTarget;
 
     private boolean mCameraUpdate = true;
@@ -57,6 +76,12 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private IARegion mFloorPlan = null;
     private Integer mFloorLevel = null;
     private GroundOverlay mGroundOverlay = null;
+<<<<<<< Updated upstream
+=======
+    private IARoute mRoute;
+    private IAGeofence.Builder dest;
+    private IAGeofence dest2;
+>>>>>>> Stashed changes
     private IALocationListener mListener = new IALocationListenerSupport() {
         @Override
         public void onLocationChanged(IALocation location) {
@@ -86,6 +111,17 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
                     mFloorPlan = region;
                     final IAFloorPlan floorPlan = region.getFloorPlan();
+<<<<<<< Updated upstream
+=======
+
+                    /**
+                    * @brief Loads maps from IndoorAtlas servers
+
+                    * @param bitmap. Object that holds the map information
+                    * @param from. Helps display image of map from IndoorAtlas
+                    */
+
+>>>>>>> Stashed changes
                     mTarget = new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -178,14 +214,39 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             public void onMapClick(LatLng pos) {
+<<<<<<< Updated upstream
                 MarkerOptions markerOptions = new MarkerOptions().position(pos);
                 mMap.clear();
                 mMap.addMarker(markerOptions);
+=======
+                if (mMap != null) { //If the map is loaded
+
+                    SearchView guidance = (SearchView) findViewById(R.id.searchBar);
+                    CharSequence query = guidance.getQuery();
+                    String s = toString(query);
+                    dest = dest.withId(s);
+                    mWayfindingDestination = new IAWayfindingRequest.Builder()
+                        .withFloor(mFloorLevel)
+                        .withLatitude(dest2.getMaxLatitude())
+                        .withLongitude(dest2.getMaxLongitude())
+                        .build();
+                    // The "Guidance" feature
+                    mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
+
+                    if (mDestinationMarker == null)
+                        mDestinationMarker = mMap.addMarker(new MarkerOptions()
+                            .position(pos)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    else
+                        mDestinationMarker.setPosition(pos);
+                }
+>>>>>>> Stashed changes
             }
         });
     }
 
     @Override
+    public void onLocationChanged(Location location) {
     public void onLocationChanged(Location location) {
         // Empty.
     }
@@ -230,4 +291,97 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
         mIALocationManager.destroy();
     }
+<<<<<<< Updated upstream
+=======
+
+
+    /**
+    * @brief Displays circle that representes users location
+
+    * @param center LatLng Object that holds useres location
+    * @param accuracyRadius number that reprecents radius of the ccuracy circle
+    */
+
+    private void showLocationCircle(LatLng center, double accuracyRadius) {
+        if (mCircle == null) {
+            // location can received before map is initialized, ignoring those updates
+            if (mMap != null) {
+                mCircle = mMap.addCircle(new CircleOptions()
+                        .center(center)
+                        .radius(accuracyRadius)
+                        .fillColor(0)
+                        .strokeColor(0)
+                        .zIndex(1.0f)
+                        .visible(true)
+                        .strokeWidth(5.0f));
+                mMarker = mMap.addMarker(new MarkerOptions()
+                        .position(center)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pawprint))
+                        .anchor(0.5f, 0.5f)
+                        .flat(true));
+            }
+        } else {
+             // move existing markers position to received location
+            mCircle.setCenter(center);
+            mMarker.setPosition(center);
+            mCircle.setRadius(accuracyRadius);
+        }
+    }
+
+    /**
+    * @brief Displays updates status of circle that representes users location
+
+    * @param pos LatLng Object that holds useres location
+    * @param radius number that reprecents radius of the ccuracy circle
+    */
+
+    private void updateLocation(LatLng pos, double radius) {
+        if (mCircle == null) {
+            if (mMap != null) {
+                mCircle = mMap.addCircle(new CircleOptions()
+                    .center(pos)
+                    .radius(radius)
+                    .fillColor(0x201681FB)
+                    .strokeColor(0x500A78DD)
+                    .zIndex(1.0f)
+                    .visible(true)
+                    .strokeWidth(5.0f));
+                mHeadingMarker = mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
+                    .anchor(0.5f, 0.5f)
+                    .flat(true));
+            }
+        } else {
+            mCircle.setCenter(pos);
+            mHeadingMarker.setPosition(pos);
+            mCircle.setRadius(radius);
+        }
+    }
+
+    private void updateRoute() {
+        for (Polyline pl : mPolylines)
+            pl.remove();
+        mPolylines.clear();
+
+        if (mRoute == null)
+            return;
+
+        for (IARoute.Leg leg : mRoute.getLegs()) {
+            if (leg.getEdgeIndex() == null)
+                continue;
+
+            PolylineOptions polylineOptions = new PolylineOptions()
+                    .add(new LatLng(leg.getBegin().getLatitude(), leg.getBegin().getLongitude()))   //Continuously get the newest lat/lng cords until arrival
+                    .add(new LatLng(leg.getEnd().getLatitude(), leg.getEnd().getLongitude()));
+
+            if (leg.getBegin().getFloor() == mFloorLevel && leg.getEnd().getFloor() == mFloorLevel)
+                polylineOptions.color(0xFF0000FF);
+            else
+                polylineOptions.color(0x300000FF);
+
+            mPolylines.add(mMap.addPolyline(polylineOptions));
+        }
+    }
+>>>>>>> Stashed changes
 }
