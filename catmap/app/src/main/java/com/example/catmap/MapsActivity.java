@@ -13,11 +13,8 @@ import android.location.LocationManager;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,20 +55,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-/**
- * @file MapsActivity
- *  Handles navigational code using GoogleMaps API alogside IndoorAtlas.
- */
-
-
-/**
- * @brief MapsActivity class.
- * Side activity that is called after app start up. Uses  permissions already granted
- * to fetch maps, update locations, and show routes.
- */
-
 public class MapsActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
     private static final int MAX_DIMENSION = 2048;
 
@@ -82,7 +65,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private Circle mCircle;
 
     private Target mTarget;
-    private Marker mMarker;
 
     private boolean mCameraUpdate = true;
     private boolean mIndoorLock = false;
@@ -93,32 +75,13 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private int mFloorLevel;
     private GroundOverlay mGroundOverlay = null;
     private IARoute mRoute;
-    private String TAG;
-
-
-    //widgets
-
-    private EditText mSearchText;
-
-
-
 
     private IALocationListener mListener = new IALocationListenerSupport() {
-
-        /**
-         * @brief Handles location updates
-         * Using the parameter location, the function updates latitude, longitude and floor level.
-         * After updating these values, the circle used to show user's location is updated on the map.
-         *
-         *@@param location Passed IALocation object containing information about current location
-         */
-
         @Override
         public void onLocationChanged(IALocation location) {
             if (mMap == null) return;
 
             final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
 
             final int newFloorLevel = location.getFloorLevel();
             if (mFloorLevel != newFloorLevel)
@@ -130,24 +93,11 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.5f));
                 mCameraUpdate = false;
             }
-            showLocationCircle(latLng,location.getAccuracy());
         }
     };
 
-
-    /**
-     * @brief Listens for changes in location
-     *
-     */
-
     private IARegion.Listener mRegionListener = new IARegion.Listener() {
         @Override
-
-
-        /**
-         * @brief Updates information when entering a new region.
-         * @param region. Used to update
-         */
         public void onEnterRegion(IARegion region) {
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
@@ -165,20 +115,12 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
                     mFloorPlan = region;
                     final IAFloorPlan floorPlan = region.getFloorPlan();
-
-                    /**
-                     * @brief Loads maps from IndorAtlas servers
-                     * @param bitmap. Object that holds the map information
-                     * @param from. Helps display image of map from IndorAtlas
-                     */
-
                     mTarget = new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                             if (mFloorPlan != null && floorPlan.getId().equals(mFloorPlan.getId())) {
                                 if (mGroundOverlay != null)
                                     mGroundOverlay.remove();
-
 
                                 if (mMap != null) {
                                     BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap);
@@ -194,11 +136,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                                 }
                             }
                         }
-
-                        /**
-                         * @If the floorplan can't be obtained, initialized to null so it doesnt display anything.
-                         *
-                         */
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
@@ -226,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 mIALocationManager.lockIndoors(true);
                 mIndoorLock = true;
             }
-        }//onEnter
+        }
 
         @Override
         public void onExitRegion(IARegion region) {
@@ -246,12 +183,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     };
 
     private IAWayfindingRequest mWayfindingDestination;
-
-    /**
-     * @brief Updates information on route based on movement by user
-     * @param route IARoute which holds information to display quickest route to location
-     */
-
     private IAWayfindingListener mWayfindingListener = new IAWayfindingListener() {
         @Override
         public void onWayfindingUpdate(IARoute route) {
@@ -284,9 +215,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mSearchText=(EditText) findViewById(R.id.input_Search);
-
-        //init();
         mIALocationManager = IALocationManager.create(this);
         mIALocationManager.registerRegionListener(mRegionListener);
 
@@ -312,17 +240,17 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             public void onMapClick(LatLng pos) {
                 if (mMap != null) {
                     mWayfindingDestination = new IAWayfindingRequest.Builder()
-                            .withFloor(mFloorLevel)
-                            .withLatitude(pos.latitude)
-                            .withLongitude(pos.longitude)
-                            .build();
+                        .withFloor(mFloorLevel)
+                        .withLatitude(pos.latitude)
+                        .withLongitude(pos.longitude)
+                        .build();
 
                     mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
 
                     if (mDestinationMarker == null)
                         mDestinationMarker = mMap.addMarker(new MarkerOptions()
-                                .position(pos)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            .position(pos)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     else
                         mDestinationMarker.setPosition(pos);
                 }
@@ -384,61 +312,22 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         mIALocationManager.destroy();
     }
 
-
-    /**
-     * @brief Displays circle that representes users location
-     * @param center LatLng Object that holds useres location
-     * @param accuracyRadius number that reprecents radius of the ccuracy circle
-     */
-
-    private void showLocationCircle(LatLng center, double accuracyRadius) {
-        if (mCircle == null) {
-            // location can received before map is initialized, ignoring those updates
-            if (mMap != null) {
-                mCircle = mMap.addCircle(new CircleOptions()
-                        .center(center)
-                        .radius(accuracyRadius)
-                        .fillColor(0)
-                        .strokeColor(0)
-                        .zIndex(1.0f)
-                        .visible(true)
-                        .strokeWidth(5.0f));
-                mMarker = mMap.addMarker(new MarkerOptions()
-                        .position(center)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pawprint))
-                        .anchor(0.5f, 0.5f)
-                        .flat(true));
-            }
-        } else {
-            // move existing markers position to received location
-            mCircle.setCenter(center);
-            mMarker.setPosition(center);
-            mCircle.setRadius(accuracyRadius);
-        }
-    }
-
-    /**
-     * @brief Displays updates status of circle that representes users location
-     * @param pos LatLng Object that holds useres location
-     * @param radius number that reprecents radius of the ccuracy circle
-     */
-
     private void updateLocation(LatLng pos, double radius) {
         if (mCircle == null) {
             if (mMap != null) {
                 mCircle = mMap.addCircle(new CircleOptions()
-                        .center(pos)
-                        .radius(radius)
-                        .fillColor(0x201681FB)
-                        .strokeColor(0x500A78DD)
-                        .zIndex(1.0f)
-                        .visible(true)
-                        .strokeWidth(5.0f));
+                    .center(pos)
+                    .radius(radius)
+                    .fillColor(0x201681FB)
+                    .strokeColor(0x500A78DD)
+                    .zIndex(1.0f)
+                    .visible(true)
+                    .strokeWidth(5.0f));
                 mHeadingMarker = mMap.addMarker(new MarkerOptions()
-                        .position(pos)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
-                        .anchor(0.5f, 0.5f)
-                        .flat(true));
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
+                    .anchor(0.5f, 0.5f)
+                    .flat(true));
             }
         } else {
             mCircle.setCenter(pos);
@@ -472,8 +361,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }
     }
 
-
-
     public void onMapSearch(View view) {
         EditText locationSearch = (EditText) findViewById(R.id.input_Search);
         String location = locationSearch.getText().toString();
@@ -493,39 +380,5 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
+
 }
-
-
-
-//
-//    private void init(){
-//        Log.d(TAG, "init: initializing");
-//
-//        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                if(actionId== EditorInfo.IME_ACTION_SEARCH || actionId==EditorInfo.IME_ACTION_DONE || keyEvent.getAction()==KeyEvent.ACTION_DOWN || keyEvent.getAction()==KeyEvent.KEYCODE_ENTER){
-//                //execute location
-//                    geoLocate();
-//                }
-//                return false;
-//            }
-//        });
-//    }
-//
-//    private void geoLocate(){
-//        Log.d(TAG, "geoLocate: geolocating");
-//        String searchString= mSearchText.getText().toString();
-//
-//        Geocoder geocoder= new Geocoder(MapsActivity.this);
-//        List<Address>list=new ArrayList();
-//        try{
-//            list=geocoder.getFromLocationName(searchString,1);
-//        }catch(IOException e){
-//            Log.e(TAG, "geoLocate: IOException" + e.getMessage() );
-//        }
-//        if (list.size()>0){
-//            Address address= list.get(0);//only address
-//            Log.d(TAG,"GeoLocate found a location:"+address.toString());
-//        }
-//    }

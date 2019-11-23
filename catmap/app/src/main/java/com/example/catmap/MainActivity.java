@@ -25,25 +25,10 @@ import com.indooratlas.android.sdk.IARegion;
 
 import java.util.ArrayList;
 
-/**
- * @file MainActivity
- * Handles initializing steps for app upon startup.
- */
-
-/**
- * @brief MainActivity class.
- * Main activity that is called at the start of the app. Fetches UI, handles permissions and makes
- * call to Maps activity, which handles all navigational (GoogleMaps / IndoorAtlas) code.
- */
 public class MainActivity extends AppCompatActivity {
     private final int CODE_PERMISSIONS = 1;
 
-    /**
-     * @brief Initializes app on launch.
-     * Calls layout and checks for permissions from user's device. Starts MapsActivity.
-     *
-     * @param savedInstanceState Passed Bundle object containing the state.
-     */
+    // Initial steps on starting the app.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,20 +37,14 @@ public class MainActivity extends AppCompatActivity {
         String[] neededPermissions = {
                 Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION //May need to be ACCESS_FINE_LOCATION in order to run. The permission seems to be bugged.
+                Manifest.permission.ACCESS_COARSE_LOCATION
         };
         ActivityCompat.requestPermissions(this, neededPermissions, CODE_PERMISSIONS);
 
         startActivity(new Intent(this, MapsActivity.class));
     }
 
-    /**
-     * @brief Request permissions from user.
-     *
-     * @param requestCode Arbitrary int value (default 1).
-     * @param permissions Array of permissions to ask user for.
-     * @param grantResults Array of permissions checks as boolean ints (0 or 1).
-     */
+    // Send permissions requests to system. If none logged, ask user.
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
