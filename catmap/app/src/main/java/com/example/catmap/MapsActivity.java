@@ -51,6 +51,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private Target mTarget;
 
     private boolean mCameraUpdate = true;
-    private boolean mIndoorLock = false;
+    private boolean mIndoors = false;
 
     private IALocationManager mIALocationManager;
     private IARegion mVenue = null;
@@ -88,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 updateRoute();
             mFloorLevel = newFloorLevel;
 
-            updateLocation(latLng, location.getAccuracy());
+            updateLocation(latLng, location.getAccuracy(), location.getBearing());
             if (mCameraUpdate) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.5f));
                 mCameraUpdate = false;
@@ -98,12 +100,10 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
     private IARegion.Listener mRegionListener = new IARegion.Listener() {
         @Override
-        public void onEnterRegion(IARegion region) {
+        public void onEnterRegion(@NotNull IARegion region) {
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
-
-                mIALocationManager.lockIndoors(false);
-                mIndoorLock = false;
+                mIndoors = false;
             } else if (region.getType() == IARegion.TYPE_FLOOR_PLAN) {
                 if (mGroundOverlay == null || !region.equals(mFloorPlan)) {
                     mCameraUpdate = true;
@@ -160,24 +160,20 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                     mGroundOverlay.setTransparency(0.0f);
                 }
 
-                mIALocationManager.lockIndoors(true);
-                mIndoorLock = true;
+                mIndoors = true;
             }
         }
 
         @Override
-        public void onExitRegion(IARegion region) {
+        public void onExitRegion(@NotNull IARegion region) {
             if (region.getType() == IARegion.TYPE_VENUE) {
                 mVenue = region;
-
-                mIALocationManager.lockIndoors(false);
-                mIndoorLock = false;
+                mIndoors = false;
             } else if (region.getType() == IARegion.TYPE_FLOOR_PLAN) {
                 if (mGroundOverlay != null)
                     mGroundOverlay.setTransparency(0.5f);
 
-                mIALocationManager.lockIndoors(true);
-                mIndoorLock = true;
+                mIndoors = true;
             }
         }
     };
@@ -185,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private IAWayfindingRequest mWayfindingDestination;
     private IAWayfindingListener mWayfindingListener = new IAWayfindingListener() {
         @Override
-        public void onWayfindingUpdate(IARoute route) {
+        public void onWayfindingUpdate(@NotNull IARoute route) {
             mRoute = route;
 
             boolean hasArrived;
@@ -219,9 +215,9 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         mIALocationManager.registerRegionListener(mRegionListener);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        ((SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map))
+                .getMapAsync(this);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
@@ -312,7 +308,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         mIALocationManager.destroy();
     }
 
-    private void updateLocation(LatLng pos, double radius) {
+    private void updateLocation(LatLng pos, double radius, double bearing) {
         if (mCircle == null) {
             if (mMap != null) {
                 mCircle = mMap.addCircle(new CircleOptions()
@@ -327,12 +323,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                     .position(pos)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
                     .anchor(0.5f, 0.5f)
+                    .rotation((float) bearing)
                     .flat(true));
             }
         } else {
             mCircle.setCenter(pos);
-            mHeadingMarker.setPosition(pos);
             mCircle.setRadius(radius);
+            mHeadingMarker.setPosition(pos);
+            mHeadingMarker.setRotation((float) bearing);
         }
     }
 
