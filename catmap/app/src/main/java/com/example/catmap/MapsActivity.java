@@ -2,6 +2,7 @@ package com.example.catmap;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -13,8 +14,11 @@ import android.location.LocationManager;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -77,6 +81,11 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private int mFloorLevel;
     private GroundOverlay mGroundOverlay = null;
     private IARoute mRoute;
+
+
+    LayoutInflater inflater = null;
+    private TextView textViewTitle;
+    private RelativeLayout rl_custominfo;
 
     private IALocationListener mListener = new IALocationListenerSupport() {
         @Override
@@ -206,6 +215,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }
     };
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -373,10 +383,44 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 e.printStackTrace();
             }
             Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            LatLng pos = new LatLng(address.getLatitude(), address.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
+            mWayfindingDestination = new IAWayfindingRequest.Builder()
+           .withFloor(mFloorLevel)
+           .withLatitude(pos.latitude)
+           .withLongitude(pos.longitude)
+           .build();
+
+           mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
+
+           if (mDestinationMarker == null)
+           mDestinationMarker = mMap.addMarker(new MarkerOptions()
+           .position(pos)
+           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+           else
+           mDestinationMarker.setPosition(pos);
         }
     }
-
 }
+
+
+
+
+//
+//   if (mMap != null) {
+//           mWayfindingDestination = new IAWayfindingRequest.Builder()
+//           .withFloor(mFloorLevel)
+//           .withLatitude(pos.latitude)
+//           .withLongitude(pos.longitude)
+//           .build();
+//
+//           mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
+//
+//           if (mDestinationMarker == null)
+//           mDestinationMarker = mMap.addMarker(new MarkerOptions()
+//           .position(pos)
+//           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+//           else
+//           mDestinationMarker.setPosition(pos);
+//           }
