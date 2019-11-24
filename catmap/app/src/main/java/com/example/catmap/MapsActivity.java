@@ -16,8 +16,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
     private GoogleMap mMap;
     private List<Polyline> mPolylines = new ArrayList<>();
+    private LatLng mDestination = null;
     private Marker mDestinationMarker;
     private Marker mHeadingMarker;
     private Circle mCircle;
@@ -81,7 +84,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private int mFloorLevel;
     private GroundOverlay mGroundOverlay = null;
     private IARoute mRoute;
-
 
     LayoutInflater inflater = null;
     private TextView textViewTitle;
@@ -234,6 +236,81 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
+
+        SearchView locationSearch = findViewById(R.id.search);
+        locationSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String location) {
+                List<Address> addressList = null;
+                String[] latLong;
+                double latitude = 0;
+                double longitude = 0;
+                boolean cord = false;
+
+                if(location.contains(" , ")){
+                    latLong =  location.split(" , ");
+                    latitude = Double.parseDouble(latLong[0]);
+                    longitude = Double.parseDouble(latLong[1]);
+                    cord = true;
+                }
+
+                if (location != null || !location.equals("")) {
+                    Geocoder geocoder = new Geocoder(getApplicationContext());
+                    if (!cord){
+                        try {
+                            addressList = geocoder.getFromLocationName(location, 1);
+                            // addressList = geocoder.getFromLocation( latitude,  longitude,  1);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else try {
+
+                        addressList = geocoder.getFromLocation( latitude,  longitude,  1);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Address address = addressList.get(0);
+                    mDestination = new LatLng(address.getLatitude(), address.getLongitude());
+
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
+                    if (mDestinationMarker == null)
+                        mDestinationMarker = mMap.addMarker(new MarkerOptions()
+                                .position(mDestination)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    else
+                        mDestinationMarker.setPosition(mDestination);
+
+                    for (Polyline pl : mPolylines)
+                        pl.remove();
+                    mPolylines.clear();
+
+                    mRoute = null;
+                    mWayfindingDestination = null;
+                    mIALocationManager.removeWayfindingUpdates();
+
+                    updateRoute();
+                }
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        Button directions = findViewById(R.id.button);
+        directions.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDestination != null)
+                    getDirections(mDestination);
+            }
+        });
     }
 
     @Override
@@ -369,62 +446,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         }
     }
 
-    public void onMapSearch(View view) {
-        EditText locationSearch = (EditText) findViewById(R.id.input_Search);
-        String location = locationSearch.getText().toString();
-        String coords=location;
-        List<Address>addressList = null;
-        String[] latlong;
-        double latitude = 0;
-        double longitude=0;
-        boolean cord=false;
+    public void getDirections(LatLng location) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(location));
+        mWayfindingDestination = new IAWayfindingRequest.Builder()
+                .withFloor(mFloorLevel)
+                .withLatitude(location.latitude)
+                .withLongitude(location.longitude)
+                .build();
 
-        if(coords.contains(" , ")){
-             latlong =  coords.split(" , ");
-             latitude = Double.parseDouble(latlong[0]);
-             longitude = Double.parseDouble(latlong[1]);
-             cord=true;
-        }
-
-
-        if (location != null || !location.equals("")) {
-            Geocoder geocoder = new Geocoder(this);
-            if (!cord){
-                try {
-                    addressList = geocoder.getFromLocationName(location, 1);
-                    // addressList = geocoder.getFromLocation( latitude,  longitude,  1);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            else try {
-
-                 addressList = geocoder.getFromLocation( latitude,  longitude,  1);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Address address = addressList.get(0);
-            LatLng pos = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
-            mWayfindingDestination = new IAWayfindingRequest.Builder()
-           .withFloor(mFloorLevel)
-           .withLatitude(pos.latitude)
-           .withLongitude(pos.longitude)
-           .build();
-
-           mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
-
-           if (mDestinationMarker == null)
-           mDestinationMarker = mMap.addMarker(new MarkerOptions()
-           .position(pos)
-           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-           else
-           mDestinationMarker.setPosition(pos);
-        }
+       mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
     }
 }
-

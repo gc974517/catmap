@@ -36,17 +36,6 @@
                 android:layout_height="match_parent"
                 android:id="@+id/search"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:textSize="15sp"
-                android:textColor="#000"
-                android:id="@+id/input_Search"
-                android:background="@null"
-                android:hint="Enter Room Num"
-                android:imeOptions="actionSearch"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -63,7 +52,5 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="onMapSearch"
-        tools:ignore="OnClick" />
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
