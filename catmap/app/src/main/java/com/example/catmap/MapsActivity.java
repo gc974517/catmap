@@ -372,16 +372,41 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     public void onMapSearch(View view) {
         EditText locationSearch = (EditText) findViewById(R.id.input_Search);
         String location = locationSearch.getText().toString();
+        String coords=location;
         List<Address>addressList = null;
+        String[] latlong;
+        double latitude = 0;
+        double longitude=0;
+        boolean cord=false;
+
+        if(coords.contains(" , ")){
+             latlong =  coords.split(" , ");
+             latitude = Double.parseDouble(latlong[0]);
+             longitude = Double.parseDouble(latlong[1]);
+             cord=true;
+        }
+
 
         if (location != null || !location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
+            if (!cord){
+                try {
+                    addressList = geocoder.getFromLocationName(location, 1);
+                    // addressList = geocoder.getFromLocation( latitude,  longitude,  1);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else try {
+
+                 addressList = geocoder.getFromLocation( latitude,  longitude,  1);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             Address address = addressList.get(0);
             LatLng pos = new LatLng(address.getLatitude(), address.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
