@@ -1,0 +1,34 @@
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+    }
+}
+
+allprojects {
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url "http://indooratlas-ltd.bintray.com/mvn-public"
+        }
+        maven {
+            url "http://indooratlas-ltd.bintray.com/mvn-public-alpha"
+        }
+        maven {
+            url "http://indooratlas-ltd.bintray.com/mvn-public-beta"
+        }
+        maven {
+            // needed for OSMBonusPack (Open Street Map example)
+            url "https://jitpack.io"
+        }
+    }
+}
