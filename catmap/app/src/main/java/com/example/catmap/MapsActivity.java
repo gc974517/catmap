@@ -384,7 +384,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             }
             Address address = addressList.get(0);
             LatLng pos = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
             mWayfindingDestination = new IAWayfindingRequest.Builder()
            .withFloor(mFloorLevel)
@@ -404,23 +403,3 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     }
 }
 
-
-
-
-//
-//   if (mMap != null) {
-//           mWayfindingDestination = new IAWayfindingRequest.Builder()
-//           .withFloor(mFloorLevel)
-//           .withLatitude(pos.latitude)
-//           .withLongitude(pos.longitude)
-//           .build();
-//
-//           mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
-//
-//           if (mDestinationMarker == null)
-//           mDestinationMarker = mMap.addMarker(new MarkerOptions()
-//           .position(pos)
-//           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-//           else
-//           mDestinationMarker.setPosition(pos);
-//           }
