@@ -61,7 +61,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
     private static final int MAX_DIMENSION = 2048;
@@ -88,6 +91,19 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     LayoutInflater inflater = null;
     private TextView textViewTitle;
     private RelativeLayout rl_custominfo;
+
+
+    static final Map<String, LatLng> COORDINATES;
+
+    static {
+        COORDINATES = new LinkedHashMap<>(); // Diamond operator requires Java 1.7+
+        COORDINATES.put("Lab 107", new LatLng(39.326, -82.10698));
+
+    }
+
+
+
+
 
     private IALocationListener mListener = new IALocationListenerSupport() {
         @Override
@@ -246,8 +262,14 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 double latitude = 0;
                 double longitude = 0;
                 boolean cord = false;
+                boolean flag =false;
 
-                if(location.contains(" , ")){
+                mDestination = COORDINATES.get(location);
+                if (mDestination != null) {
+                    latitude = mDestination.latitude;
+                    longitude = mDestination.longitude;
+                    flag = true;
+                } else if (location.contains(" , ")){
                     latLong =  location.split(" , ");
                     latitude = Double.parseDouble(latLong[0]);
                     longitude = Double.parseDouble(latLong[1]);
@@ -256,7 +278,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
                 if (location != null || !location.equals("")) {
                     Geocoder geocoder = new Geocoder(getApplicationContext());
-                    if (!cord){
+                    if (!cord && !flag){
                         try {
                             addressList = geocoder.getFromLocationName(location, 1);
                             // addressList = geocoder.getFromLocation( latitude,  longitude,  1);
@@ -273,7 +295,10 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                     }
 
                     Address address = addressList.get(0);
-                    mDestination = new LatLng(address.getLatitude(), address.getLongitude());
+
+
+                   if (!flag)
+                       mDestination = new LatLng(address.getLatitude(), address.getLongitude());
 
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
                     if (mDestinationMarker == null)
@@ -456,4 +481,8 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
        mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
     }
+
 }
+
+
+//39.326, -82.10694 lab 107
