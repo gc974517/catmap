@@ -1,0 +1,16 @@
+{
+  "places": [
+    {
+      "name": "Room 1",
+      "address": "Addr 1",
+      "latitude": 49,
+      "longitude": 49
+    },
+    {
+      "name": "Room 2",
+      "address": "Addr 2",
+      "latitude": 32,
+      "longitude": -82
+    }
+  ]
+}

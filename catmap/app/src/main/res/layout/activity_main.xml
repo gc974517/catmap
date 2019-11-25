@@ -11,6 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         tools:context=".MapsActivity" />
 
     <LinearLayout
@@ -31,10 +32,16 @@
             android:layout_marginVertical="20dp"
             android:background="@drawable/rounded_menu">
 
-            <SearchView
+            <androidx.appcompat.widget.SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/search"/>
+
+<!--            <fragment-->
+<!--                android:id="@+id/autocomplete_fragment"-->
+<!--                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
         </RelativeLayout>
     </LinearLayout>

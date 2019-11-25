@@ -1,5 +1,6 @@
 package com.example.catmap;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
@@ -16,12 +17,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -41,6 +48,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationListener;
 import com.indooratlas.android.sdk.IALocationManager;
@@ -58,9 +77,15 @@ import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -70,6 +95,17 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private static final int MAX_DIMENSION = 2048;
 
     private GoogleMap mMap;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private PlacesClient mPlacesClient;
+    private List<AutocompletePrediction> autocompletePredictions;
+    
+    private JSONArray jsonArray;
+    private JSONObject jsonPlace;
+    private Map<String, JSONObject> places = new LinkedHashMap<>();
+    private ArrayAdapter<String> adapter;
+
+    private Location mLocation;
+    private LocationCallback mLocationCallback;
     private List<Polyline> mPolylines = new ArrayList<>();
     private LatLng mDestination = null;
     private Marker mDestinationMarker;
@@ -91,19 +127,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     LayoutInflater inflater = null;
     private TextView textViewTitle;
     private RelativeLayout rl_custominfo;
-
-
-    static final Map<String, LatLng> COORDINATES;
-
-    static {
-        COORDINATES = new LinkedHashMap<>(); // Diamond operator requires Java 1.7+
-        COORDINATES.put("Lab 107", new LatLng(39.326, -82.10698));
-
-    }
-
-
-
-
 
     private IALocationListener mListener = new IALocationListenerSupport() {
         @Override
@@ -253,89 +276,86 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
 
-        SearchView locationSearch = findViewById(R.id.search);
-        locationSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String location) {
-                List<Address> addressList = null;
-                String[] latLong;
-                double latitude = 0;
-                double longitude = 0;
-                boolean cord = false;
-                boolean flag =false;
+        ArrayList<String> placeNames = new ArrayList<String>();
+        try {
+            JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
+            jsonArray = jsonObject.getJSONArray("places");
 
-                mDestination = COORDINATES.get(location);
-                if (mDestination != null) {
-                    latitude = mDestination.latitude;
-                    longitude = mDestination.longitude;
-                    flag = true;
-                } else if (location.contains(" , ")){
-                    latLong =  location.split(" , ");
-                    latitude = Double.parseDouble(latLong[0]);
-                    longitude = Double.parseDouble(latLong[1]);
-                    cord = true;
+            if (true) {
+                Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(jsonArray.length()), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject room = jsonArray.getJSONObject(i);
+
+                if (room.isNull("name")) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "big lol", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
-                if (location != null || !location.equals("")) {
-                    Geocoder geocoder = new Geocoder(getApplicationContext());
-                    if (!cord && !flag){
-                        try {
-                            addressList = geocoder.getFromLocationName(location, 1);
-                            // addressList = geocoder.getFromLocation( latitude,  longitude,  1);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else try {
-
-                        addressList = geocoder.getFromLocation( latitude,  longitude,  1);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    Address address = addressList.get(0);
-
-
-                   if (!flag)
-                       mDestination = new LatLng(address.getLatitude(), address.getLongitude());
-
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
-                    if (mDestinationMarker == null)
-                        mDestinationMarker = mMap.addMarker(new MarkerOptions()
-                                .position(mDestination)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                    else
-                        mDestinationMarker.setPosition(mDestination);
-
-                    for (Polyline pl : mPolylines)
-                        pl.remove();
-                    mPolylines.clear();
-
-                    mRoute = null;
-                    mWayfindingDestination = null;
-                    mIALocationManager.removeWayfindingUpdates();
-
-                    updateRoute();
-                }
-
-                return true;
+                places.put("name", room);
+                placeNames.add(room.getString("name"));
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-
-        Button directions = findViewById(R.id.button);
-        directions.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mDestination != null)
-                    getDirections(mDestination);
-            }
-        });
+        androidx.appcompat.widget.SearchView locationSearch = findViewById(R.id.search);
+        androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = locationSearch.findViewById(androidx.appcompat.R.id.search_src_text);
+        String arr[] = {"help", "me"};
+        searchAutoComplete.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, placeNames));
+//
+//        locationSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String location) {
+//                double latitude = 0;
+//                double longitude = 0;
+//
+//                try {
+//                    jsonPlace = jsonArray.getJSONObject(0);
+//
+//                    latitude = jsonPlace.getDouble("latitude");
+//                    longitude = jsonPlace.getDouble("longitude");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                mDestination = new LatLng(latitude, longitude);
+//
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
+//                if (mDestinationMarker == null)
+//                    mDestinationMarker = mMap.addMarker(new MarkerOptions()
+//                            .position(mDestination)
+//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+//                else
+//                    mDestinationMarker.setPosition(mDestination);
+//
+//                for (Polyline pl : mPolylines)
+//                    pl.remove();
+//                mPolylines.clear();
+//
+//                mRoute = null;
+//                mWayfindingDestination = null;
+//                mIALocationManager.removeWayfindingUpdates();
+//
+//                updateRoute();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return true;
+//            }
+//        });
+//
+//        Button directions = findViewById(R.id.button);
+//        directions.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mDestination != null)
+//                    getDirections(mDestination);
+//            }
+//        });
     }
 
     @Override
@@ -482,6 +502,21 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
        mIALocationManager.requestWayfindingUpdates(mWayfindingDestination, mWayfindingListener);
     }
 
+    public String loadJSONFromAsset() {
+        try {
+            InputStream ins = this.getAssets().open("places.json");
+            byte[] buffer = new byte[ins.available()];
+
+            ins.read(buffer);
+            ins.close();
+
+            String json = new String(buffer, "UTF-8");
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 
 
