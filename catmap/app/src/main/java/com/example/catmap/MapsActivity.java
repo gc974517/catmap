@@ -1,10 +1,12 @@
 package com.example.catmap;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -17,12 +19,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient mPlacesClient;
     private List<AutocompletePrediction> autocompletePredictions;
-    
+
     private JSONArray jsonArray;
     private JSONObject jsonPlace;
     private Map<String, JSONObject> places = new LinkedHashMap<>();
@@ -281,81 +283,85 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
             jsonArray = jsonObject.getJSONArray("places");
 
-            if (true) {
-                Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(jsonArray.length()), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject room = jsonArray.getJSONObject(i);
 
-                if (room.isNull("name")) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "big lol", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-                places.put("name", room);
+                places.put(room.getString("name"), room);
                 placeNames.add(room.getString("name"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        androidx.appcompat.widget.SearchView locationSearch = findViewById(R.id.search);
+        if (places.get("Room 1") == null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "large sad", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        final androidx.appcompat.widget.SearchView locationSearch = findViewById(R.id.search);
         androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = locationSearch.findViewById(androidx.appcompat.R.id.search_src_text);
         String arr[] = {"help", "me"};
         searchAutoComplete.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, placeNames));
-//
-//        locationSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String location) {
-//                double latitude = 0;
-//                double longitude = 0;
-//
-//                try {
-//                    jsonPlace = jsonArray.getJSONObject(0);
-//
-//                    latitude = jsonPlace.getDouble("latitude");
-//                    longitude = jsonPlace.getDouble("longitude");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                mDestination = new LatLng(latitude, longitude);
-//
-//                mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
-//                if (mDestinationMarker == null)
-//                    mDestinationMarker = mMap.addMarker(new MarkerOptions()
-//                            .position(mDestination)
-//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-//                else
-//                    mDestinationMarker.setPosition(mDestination);
-//
-//                for (Polyline pl : mPolylines)
-//                    pl.remove();
-//                mPolylines.clear();
-//
-//                mRoute = null;
-//                mWayfindingDestination = null;
-//                mIALocationManager.removeWayfindingUpdates();
-//
-//                updateRoute();
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                return true;
-//            }
-//        });
-//
-//        Button directions = findViewById(R.id.button);
-//        directions.setOnClickListener(new Button.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mDestination != null)
-//                    getDirections(mDestination);
-//            }
-//        });
+
+        searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String query = (String) adapterView.getItemAtPosition(i);
+                locationSearch.setQuery(query, true);
+            }
+        });
+
+        locationSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                JSONObject room = places.get(query);
+                double latitude = 0;
+                double longitude = 0;
+
+                if (room != null) {
+                    try {
+                        latitude = room.getDouble("latitude");
+                        longitude = room.getDouble("longitude");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                mDestination = new LatLng(latitude, longitude);
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(mDestination));
+                if (mDestinationMarker == null)
+                    mDestinationMarker = mMap.addMarker(new MarkerOptions()
+                            .position(mDestination)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                else
+                    mDestinationMarker.setPosition(mDestination);
+
+                for (Polyline pl : mPolylines)
+                    pl.remove();
+                mPolylines.clear();
+
+                mRoute = null;
+                mWayfindingDestination = null;
+                mIALocationManager.removeWayfindingUpdates();
+
+                updateRoute();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        Button directions = findViewById(R.id.button);
+        directions.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDestination != null)
+                    getDirections(mDestination);
+            }
+        });
     }
 
     @Override
