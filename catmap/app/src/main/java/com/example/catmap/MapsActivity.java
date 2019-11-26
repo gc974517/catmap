@@ -1,39 +1,23 @@
 package com.example.catmap;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -46,22 +30,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationListener;
 import com.indooratlas.android.sdk.IALocationManager;
@@ -85,10 +56,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,17 +65,9 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private static final int MAX_DIMENSION = 2048;
 
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient mPlacesClient;
-    private List<AutocompletePrediction> autocompletePredictions;
-
     private JSONArray jsonArray;
-    private JSONObject jsonPlace;
     private Map<String, JSONObject> places = new LinkedHashMap<>();
-    private ArrayAdapter<String> adapter;
 
-    private Location mLocation;
-    private LocationCallback mLocationCallback;
     private List<Polyline> mPolylines = new ArrayList<>();
     private LatLng mDestination = null;
     private Marker mDestinationMarker;
@@ -125,10 +85,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private int mFloorLevel;
     private GroundOverlay mGroundOverlay = null;
     private IARoute mRoute;
-
-    LayoutInflater inflater = null;
-    private TextView textViewTitle;
-    private RelativeLayout rl_custominfo;
 
     private IALocationListener mListener = new IALocationListenerSupport() {
         @Override
@@ -293,14 +249,8 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
             e.printStackTrace();
         }
 
-        if (places.get("Room 1") == null) {
-            Toast toast = Toast.makeText(getApplicationContext(), "large sad", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
         final androidx.appcompat.widget.SearchView locationSearch = findViewById(R.id.search);
         androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = locationSearch.findViewById(androidx.appcompat.R.id.search_src_text);
-        String arr[] = {"help", "me"};
         searchAutoComplete.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, placeNames));
 
         searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
