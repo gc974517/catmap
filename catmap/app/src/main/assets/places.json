@@ -1,16 +1,774 @@
 {
   "places": [
     {
-      "name": "Room 1",
-      "address": "Addr 1",
-      "latitude": 49,
-      "longitude": 49
+      "name": "Stocker Center, Room 108",
+
+      "latitude": 39.3260365,
+      "longitude": -82.1070065,
+      "floor": 1
     },
     {
-      "name": "Room 2",
-      "address": "Addr 2",
-      "latitude": 32,
-      "longitude": -82
+      "name": "Stocker Center, Room 107",
+
+      "latitude": 39.3260531,
+      "longitude": -82.1069368,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 109",
+
+      "latitude": 39.3259867,
+      "longitude": -82.1070555,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 110",
+
+      "latitude": 39.3259379,
+      "longitude": -82.1070032,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 114",
+
+      "latitude": 39.325897,
+      "longitude": -82.1070629,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 116",
+
+      "latitude": 39.3258757,
+      "longitude": -82.1070246,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 118",
+
+      "latitude": 39.3258601,
+      "longitude": -82.1069978,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 120",
+
+      "latitude": 39.3258471,
+      "longitude": -82.1069723,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 121",
+
+      "latitude": 39.3258528,
+      "longitude": -82.1069348,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 122",
+
+      "latitude": 39.3258394,
+      "longitude": -82.1069576,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 119",
+
+      "latitude": 39.3258871,
+      "longitude": -82.1069904,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 123E",
+
+      "latitude": 39.3257901,
+      "longitude": -82.1072338,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 124D",
+
+      "latitude": 39.325815,
+      "longitude": -82.1072406,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 123D",
+
+      "latitude": 39.3258165,
+      "longitude": -82.1072037,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 124C",
+
+      "latitude": 39.325843,
+      "longitude": -82.1072124,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 123C",
+
+      "latitude": 39.3258425,
+      "longitude": -82.1071789,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 124B",
+
+      "latitude": 39.3258653,
+      "longitude": -82.1071896,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 123B",
+
+      "latitude": 39.3258627,
+      "longitude": -82.1071527,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 123A",
+
+      "latitude": 39.3258788,
+      "longitude": -82.107138,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 124A",
+
+      "latitude": 39.3258938,
+      "longitude": -82.1071567,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 134",
+
+      "latitude": 39.3259742,
+      "longitude": -82.1071326,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 133",
+
+      "latitude": 39.3259607,
+      "longitude": -82.1071614,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 136",
+
+      "latitude": 39.3259945,
+      "longitude": -82.1071688,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 135",
+
+      "latitude": 39.3259805,
+      "longitude": -82.1071923,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 138",
+
+      "latitude": 39.3260183,
+      "longitude": -82.1072044,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 137",
+
+      "latitude": 39.3259971,
+      "longitude": -82.1072224,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 139",
+
+      "latitude": 39.3260038,
+      "longitude": -82.1072345,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 141",
+
+      "latitude": 39.3260297,
+      "longitude": -82.1072768,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 143A",
+
+      "latitude": 39.3260453,
+      "longitude": -82.1072801,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 143",
+
+      "latitude": 39.3260489,
+      "longitude": -82.1073009,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 142",
+
+      "latitude": 39.3260474,
+      "longitude": -82.1072459,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 145",
+
+      "latitude": 39.3260562,
+      "longitude": -82.1072687,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 144",
+
+      "latitude": 39.3260609,
+      "longitude": -82.1072218,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 147",
+
+      "latitude": 39.3260837,
+      "longitude": -82.1072386,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 146",
+
+      "latitude": 39.3260754,
+      "longitude": -82.107207,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 149",
+
+      "latitude": 39.326107,
+      "longitude": -82.1072158,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 148",
+
+      "latitude": 39.3261003,
+      "longitude": -82.1071782,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 151",
+
+      "latitude": 39.3261355,
+      "longitude": -82.1071836,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 153",
+
+      "latitude": 39.3261781,
+      "longitude": -82.107138,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 150",
+
+      "latitude": 39.3261537,
+      "longitude": -82.1071219,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 152",
+
+      "latitude": 39.3261604,
+      "longitude": -82.1070977,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 155",
+
+      "latitude": 39.3262217,
+      "longitude": -82.1070984,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 154",
+
+      "latitude": 39.326231,
+      "longitude": -82.107032,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 157",
+
+      "latitude": 39.3262559,
+      "longitude": -82.1070528,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 156",
+
+      "latitude": 39.3262476,
+      "longitude": -82.1070226,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 159",
+
+      "latitude": 39.3262912,
+      "longitude": -82.1070186,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 018A",
+
+      "latitude": 39.3262891,
+      "longitude": -82.1069851,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 159A",
+
+      "latitude": 39.3263067,
+      "longitude": -82.1069971,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 161",
+
+      "latitude": 39.3263207,
+      "longitude": -82.1069858,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 162",
+
+      "latitude": 39.3263275,
+      "longitude": -82.1069442,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 158",
+
+      "latitude": 39.3263399,
+      "longitude": -82.1069241,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 163",
+
+      "latitude": 39.3263581,
+      "longitude": -82.1069489,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 106",
+
+      "latitude": 39.3261081,
+      "longitude": -82.1069676,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 198",
+
+      "latitude": 39.3261418,
+      "longitude": -82.1069334,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 196",
+
+      "latitude": 39.3261604,
+      "longitude": -82.1068744,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 195",
+
+      "latitude": 39.326162,
+      "longitude": -82.1068255,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 194",
+
+      "latitude": 39.3261781,
+      "longitude": -82.1068503,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 162A",
+
+      "latitude": 39.3262284,
+      "longitude": -82.1067987,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 195A",
+
+      "latitude": 39.3261952,
+      "longitude": -82.1067732,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 190",
+
+      "latitude": 39.3261765,
+      "longitude": -82.1067497,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 193",
+
+      "latitude": 39.3262035,
+      "longitude": -82.1067336,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 192",
+
+      "latitude": 39.3261272,
+      "longitude": -82.1066766,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 191A",
+
+      "latitude": 39.3261781,
+      "longitude": -82.1066055,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 189",
+
+      "latitude": 39.3262196,
+      "longitude": -82.1066391,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 188",
+
+      "latitude": 39.3261983,
+      "longitude": -82.1066585,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 187",
+
+      "latitude": 39.3262476,
+      "longitude": -82.106684,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 191C",
+
+      "latitude": 39.3261641,
+      "longitude": -82.1065854,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 191D",
+
+      "latitude": 39.3261931,
+      "longitude": -82.1065794,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 191F",
+
+      "latitude": 39.3262019,
+      "longitude": -82.1065982,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 173",
+
+      "latitude": 39.326288,
+      "longitude": -82.1067383,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 168",
+
+      "latitude": 39.3262735,
+      "longitude": -82.1067718,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 171",
+
+      "latitude": 39.3263529,
+      "longitude": -82.1068376,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 166",
+
+      "latitude": 39.3263358,
+      "longitude": -82.1068557,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 167A",
+
+      "latitude": 39.3263918,
+      "longitude": -82.1068925,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 167B",
+
+      "latitude": 39.3264001,
+      "longitude": -82.1069046,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 165",
+
+      "latitude": 39.3263897,
+      "longitude": -82.1069127,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 169",
+
+      "latitude": 39.3263591,
+      "longitude": -82.1068456,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 102",
+
+      "latitude": 39.3260401,
+      "longitude": -82.1067745,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 104",
+
+      "latitude": 39.3260655,
+      "longitude": -82.1068114,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 103",
+
+      "latitude": 39.3260085,
+      "longitude": -82.1068436,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 105",
+
+      "latitude": 39.3260323,
+      "longitude": -82.1068651,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 108C",
+
+      "latitude": 39.3260349,
+      "longitude": -82.10703,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 108A",
+
+      "latitude": 39.3260536,
+      "longitude": -82.107024,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 108B",
+
+      "latitude": 39.3260645,
+      "longitude": -82.1071373,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 125B",
+
+      "latitude": 39.3257481,
+      "longitude": -82.1072701,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 125",
+
+      "latitude": 39.3257144,
+      "longitude": -82.1073271,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 125A",
+
+      "latitude": 39.325719,
+      "longitude": -82.1073445,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 126",
+
+      "latitude": 39.3257865,
+      "longitude": -82.1072989,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 128",
+
+      "latitude": 39.3258036,
+      "longitude": -82.1073291,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 127",
+
+      "latitude": 39.3257807,
+      "longitude": -82.1073512,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 128A",
+
+      "latitude": 39.3258409,
+      "longitude": -82.1073908,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 130",
+
+      "latitude": 39.3258466,
+      "longitude": -82.1074095,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 130A",
+
+      "latitude": 39.3258617,
+      "longitude": -82.1074323,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 129",
+
+      "latitude": 39.3258554,
+      "longitude": -82.1074813,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 132",
+
+      "latitude": 39.3258824,
+      "longitude": -82.1075001,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 103B",
+
+      "latitude": 39.3259358,
+      "longitude": -82.1069194,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 170",
+
+      "latitude": 39.3263135,
+      "longitude": -82.1066813,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 172",
+
+      "latitude": 39.3263295,
+      "longitude": -82.1066599,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 175",
+
+      "latitude": 39.3263404,
+      "longitude": -82.1066887,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 174",
+
+      "latitude": 39.3263627,
+      "longitude": -82.106625,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 177",
+
+      "latitude": 39.3263778,
+      "longitude": -82.1066397,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 179",
+
+      "latitude": 39.3263939,
+      "longitude": -82.1066317,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 176",
+
+      "latitude": 39.3263773,
+      "longitude": -82.1066136,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 178",
+
+      "latitude": 39.3264105,
+      "longitude": -82.1065747,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 181",
+
+      "latitude": 39.3264281,
+      "longitude": -82.1065861,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 183",
+
+      "latitude": 39.3264385,
+      "longitude": -82.1065747,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 180",
+
+      "latitude": 39.3264328,
+      "longitude": -82.1065539,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 182",
+
+      "latitude": 39.3264634,
+      "longitude": -82.1065164,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 185",
+
+      "latitude": 39.3264862,
+      "longitude": -82.1065244,
+      "floor": 1
+    },
+    {
+      "name": "Stocker Center, Room 184",
+
+      "latitude": 39.3264686,
+      "longitude": -82.1065063,
+      "floor": 1
     }
   ]
 }
