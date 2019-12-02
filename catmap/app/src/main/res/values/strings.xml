@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">CatMap</string>
-    <string-array name="results">
-        <item>Room 100</item>
-        <item>Room 101</item>
-        <item>Room 120</item>
-        <item>Room 132</item>
-        <item>Room 149</item>
-    </string-array>
     <string name="button_close">Close</string>
     <string name="title_activity_maps">Google Map</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAggrtPHM9ENS8qJloGsUbFbyuusDFgT50</string>
+    <string name="google_maps_key">AIzaSyAggrtPHM9ENS8qJloGsUbFbyuusDFgT50</string>
+    <string name="ia_key">c87cb17d-4df5-463b-b240-f95d4f92fefa</string>
+    <string name="ia_key_secret">ExBz4fJAf8OjuSpd7CnI7QDNn25MJbPQrPXd4XouGSZV5oNa8t/o6uvDEOze+JwoIyzAMRuFbinpp6KhorVWpgHat3XWUQI56MQaRa/Oohp1Q94Zk7qN172l5KeJ5g==</string>
 </resources>

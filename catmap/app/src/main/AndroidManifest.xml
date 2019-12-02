@@ -41,10 +41,10 @@
 
         <meta-data
             android:name="com.indooratlas.android.sdk.API_KEY"
-            android:value="c87cb17d-4df5-463b-b240-f95d4f92fefa"/>
+            android:value="@string/ia_key"/>
         <meta-data
             android:name="com.indooratlas.android.sdk.API_SECRET"
-            android:value="ExBz4fJAf8OjuSpd7CnI7QDNn25MJbPQrPXd4XouGSZV5oNa8t/o6uvDEOze+JwoIyzAMRuFbinpp6KhorVWpgHat3XWUQI56MQaRa/Oohp1Q94Zk7qN172l5KeJ5g=="/>
+            android:value="@string/ia_key_secret"/>
 
         <activity
             android:name=".MapsActivity"
