@@ -247,6 +247,8 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 mRoute = null;
                 mWayfindingDestination = null;
                 mIALocationManager.removeWayfindingUpdates();
+
+                mDestinationMarker.setVisible(false);
             }
 
             // Update map with new route.
@@ -347,6 +349,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                 else
                     mDestinationMarker.setPosition(mDestination);
+                mDestinationMarker.setVisible(true);
 
                 // Remove all route polylines on map.
                 for (Polyline pl : mPolylines)
@@ -412,6 +415,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     else
                         mDestinationMarker.setPosition(pos);
+                    mDestinationMarker.setVisible(true);
                 }
             }
         });
