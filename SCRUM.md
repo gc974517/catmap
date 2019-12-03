@@ -114,4 +114,4 @@ None currently scheduled. Live demo on Tuesday, __10/22/19__!
 
 * Monday, 12/2 8:00pm - 10:00pm
 	- Put finishing touches on project and work on class presentation.
-	- Celebrate with some Scrum Dinner. It was SCRUMtious.
+	- Celebrate with some Scrum Dinner. It was SCRUMptious.
