@@ -102,7 +102,16 @@ None currently scheduled. Live demo on Tuesday, __10/22/19__!
 		+ Marcelo: Labelling rooms inside buildings for future search function, mapping out other floors(2,3, ground).
 		+ Ian: Utilize paw button for wayfinding.
 		+ Daniel: Creating a working search bar.
+
 * Monday, 11/4 7:30pm - 9:30pm
 	- Work on our tools presentation.
 	- Discuss the future rolls and goals we need in order to move on.
 		+ Everyone: Find how to make the app work on everyones computers and phones.
+
+* Monday, 11/25 7:30pm - 9:30pm
+	- Work on ironing out final issues before break.
+	- Hide API keys from github.
+
+* Monday, 12/2 8:00pm - 10:00pm
+	- Put finishing touches on project and work on class presentation.
+	- Celebrate with some Scrum Dinner. It was SCRUMtious.
